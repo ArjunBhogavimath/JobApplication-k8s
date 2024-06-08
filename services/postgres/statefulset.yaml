@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: postgres
@@ -20,15 +20,15 @@ spec:
         image: postgres
         imagePullPolicy: IfNotPresent
         envFrom:
-          - configMapRef:
-              name: postgres-config
+        - configMapRef:
+            name: postgres-config
         resources:
           requests:
             cpu: 100m
             memory: 256Mi
-        limits:
-          cpu: 500m
-          memory: 512Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
         volumeMounts:
         - name: postgres-data
           mountPath: "/var/lib/postgresql/data"
@@ -36,7 +36,7 @@ spec:
   - metadata:
       name: postgres-data
     spec:
-      accessModes: [ "ReadWriteOnce" ]
+      accessModes: ["ReadWriteOnce"]
       resources:
         requests:
           storage: 5Gi
